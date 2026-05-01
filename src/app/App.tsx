@@ -517,6 +517,30 @@ export default function App() {
         </div>
       </section>
 
+      {/* ANIMATED STATS COUNTER */}
+      <section id="stats-section" className="relative py-20 bg-black border-y border-white/10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: stats.clients, suffix: '+', label: 'Clients Protected', icon: <Users className="w-8 h-8" /> },
+              { value: stats.officers, suffix: '+', label: 'Certified Officers', icon: <Shield className="w-8 h-8" /> },
+              { value: stats.response, suffix: '/7', label: 'Hour Availability', icon: <Clock className="w-8 h-8" /> },
+              { value: stats.satisfaction, suffix: '%', label: 'Client Satisfaction', icon: <Award className="w-8 h-8" /> }
+            ].map((stat, idx) => (
+              <div key={idx} className="group">
+                <div className="w-16 h-16 bg-red-600/20 rounded-2xl flex items-center justify-center text-red-500 mx-auto mb-4 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
+                  {stat.icon}
+                </div>
+                <div className="text-5xl font-black mb-2">
+                  {stat.value}<span className="text-red-500">{stat.suffix}</span>
+                </div>
+                <div className="text-slate-400 text-sm uppercase tracking-wider">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PAST PERFORMANCE */}
       <section id="performance" className="relative py-20 bg-gradient-to-b from-black via-slate-900 to-black">
         <div className="max-w-7xl mx-auto px-6">
@@ -681,6 +705,43 @@ export default function App() {
         </div>
       </section>
 
+      {/* FAQ SECTION */}
+      <section className="relative py-20 bg-black">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-black mb-4">
+              Common <span className="text-red-500">Questions</span>
+            </h2>
+            <p className="text-slate-400 text-xl">Everything you need to know about GSRS services</p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { q: 'Are your security officers licensed in Nevada?', a: 'Yes. All GSRS officers hold valid Nevada security guard licenses, are fully bonded, and carry professional liability insurance. We comply with all Nevada Private Investigator\'s Licensing Board (PILB) requirements.' },
+              { q: 'How quickly can you deploy a security team?', a: 'Our rapid response units can deploy within 15–30 minutes across the Las Vegas metro area. For planned engagements, we typically onboard within 24–48 hours of contract execution.' },
+              { q: 'Do you work with government agencies?', a: 'Yes. GSRS is SAM-registered with CAGE code 9KEW7 and UEI X9HMZ5V4FXL1. We hold NAICS 561612 (Security Guards & Patrol) and have managed DHS-compliant contracts including a $32M RTC engagement.' },
+              { q: 'What certifications do your officers hold?', a: 'Our officers receive ongoing training in use-of-force protocols, emergency first aid/CPR, de-escalation techniques, and customer relations. Armed officers complete additional firearms qualification per Nevada law.' },
+              { q: 'Can you provide surveillance and monitoring only?', a: 'Absolutely. We offer standalone surveillance packages including CCTV installation, 24/7 remote monitoring from our command center, AI-assisted threat detection, and alarm response — no on-site guard required.' }
+            ].map((item, idx) => (
+              <div key={idx} className="border border-white/10 rounded-2xl overflow-hidden">
+                <button
+                  onClick={() => setActiveFAQ(activeFAQ === idx ? null : idx)}
+                  className="w-full flex items-center justify-between px-8 py-6 text-left hover:bg-white/5 transition-colors"
+                >
+                  <span className="font-bold text-lg pr-4">{item.q}</span>
+                  {activeFAQ === idx ? <ChevronUp className="w-5 h-5 text-red-500 flex-shrink-0" /> : <ChevronDown className="w-5 h-5 text-slate-400 flex-shrink-0" />}
+                </button>
+                {activeFAQ === idx && (
+                  <div className="px-8 pb-6 text-slate-300 leading-relaxed border-t border-white/10 pt-4">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CONTACT - Split Layout */}
       <section id="contact" className="relative py-20 bg-gradient-to-br from-red-900 via-slate-900 to-black overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -704,23 +765,23 @@ export default function App() {
               </div>
 
               <div className="space-y-6">
-                <a href="tel:+17025551234" className="flex items-center gap-4 group">
+                <a href="tel:+14142081997" className="flex items-center gap-4 group">
                   <div className="w-14 h-14 bg-red-600/20 rounded-xl flex items-center justify-center group-hover:bg-red-600 transition-all">
                     <Phone className="w-6 h-6" />
                   </div>
                   <div>
                     <div className="text-sm text-slate-400">Call Us</div>
-                    <div className="text-xl font-bold">(702) 555-1234</div>
+                    <div className="text-xl font-bold">(414) 208-1997</div>
                   </div>
                 </a>
 
-                <a href="mailto:info@gsrs-security.com" className="flex items-center gap-4 group">
+                <a href="mailto:cyancey@gsrsteams.com" className="flex items-center gap-4 group">
                   <div className="w-14 h-14 bg-red-600/20 rounded-xl flex items-center justify-center group-hover:bg-red-600 transition-all">
                     <Mail className="w-6 h-6" />
                   </div>
                   <div>
                     <div className="text-sm text-slate-400">Email Us</div>
-                    <div className="text-xl font-bold">info@gsrs-security.com</div>
+                    <div className="text-xl font-bold">cyancey@gsrsteams.com</div>
                   </div>
                 </a>
 
@@ -790,14 +851,14 @@ export default function App() {
               <div className="space-y-2 text-sm text-slate-400">
                 <div onClick={() => scrollToSection('about')} className="hover:text-white cursor-pointer transition-colors">About GSRS</div>
                 <div onClick={() => scrollToSection('contact')} className="hover:text-white cursor-pointer transition-colors">Get a Quote</div>
-                <a href="tel:+17025551234" className="block hover:text-white transition-colors">(702) 555-1234</a>
-                <a href="mailto:info@gsrs-security.com" className="block hover:text-white transition-colors">info@gsrs-security.com</a>
+                <a href="tel:+14142081997" className="block hover:text-white transition-colors">(414) 208-1997</a>
+                <a href="mailto:cyancey@gsrsteams.com" className="block hover:text-white transition-colors">cyancey@gsrsteams.com</a>
               </div>
             </div>
           </div>
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-400">
-            <div>© 2024 General Security & Response Services, LLC. All rights reserved.</div>
+            <div>© 2025 General Security & Response Services, LLC. All rights reserved.</div>
             <div className="flex items-center gap-4">
               <span>Nevada Licensed</span>
               <span>•</span>
